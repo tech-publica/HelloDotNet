@@ -7,7 +7,7 @@ namespace HelloDotNet
         static void Main(string[] args)
         {
             Console.WriteLine("Hello World!");
-
+            FizzBuzz();
         }
 
 
@@ -289,6 +289,29 @@ namespace HelloDotNet
             QuickSort(array, start, right - 1);
             QuickSort(array, right + 1, end);
         }
+        static void FizzBuzz()
+        {
+            string message;
+            for(int i=1;i<=100;i++)
+            {
+                message = "";
+                if (i % 3 == 0)
+                {
+                    message += "Fizz";
+                }
+                if (i % 5 == 0)
+                {
+                    message += "Buzz";
+                }
+                if(String.IsNullOrEmpty(message))
+                {
+                    message = i.ToString();
+                }
+                Console.WriteLine(message);
+            }
+        }
+
+
     }
 
 }
