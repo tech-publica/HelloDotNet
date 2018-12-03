@@ -1,16 +1,110 @@
-﻿using System;
+﻿using it.Finsa.HelloDotNetCore.Collections;
+using it.Finsa.HelloDotNetCore.Delegati;
+using it.Finsa.HelloDotNetCore.Inheritance;
+using it.Finsa.HelloDotNetCore.Inheritance.Conti;
+using System;
+using System.Collections.Generic;
 
-namespace HelloDotNet
+
+namespace it.Finsa.HelloDotNetCore.Algorithms
 {
     public class Program
     {
-        static void Main(string[] args)
+        public DateTime StartDate { get; set; }
+
+        private string language;
+        public String Language
         {
-            Console.WriteLine("Hello World!");
-            FizzBuzz();
+            get
+            {
+                return language;
+            }
+            set
+            {
+                if(value == "Java")
+                {
+                    Console.WriteLine("Java e' proibito!!!");
+                }
+                else
+                {
+                    language = value;
+                }
+            }
+
         }
 
+        private bool isLong = false;
 
+        public int GetLength()
+        {
+            if (isLong)
+                return 100;
+            else
+                return 2;
+        }
+
+        public void SetLength(int value)
+        {
+
+            if (value > 6)
+                isLong = true;
+            else
+                isLong = false;
+
+
+        }
+
+        class Persona
+        { }
+        class Studente : Persona
+        { }
+
+
+
+        static void Main(string[] args)
+        {
+            //var dict = new Dictionary<string, Studente>();
+            //Studente st = new Studente();
+            //Persona p = st;
+
+            //Pair p = new Pair("ciccio", true);
+
+            //string f = (string)p.First;
+
+            //var ps = new PairOfString("ciccio", "pippo");
+
+            //PairOf<string, bool> pairOfStringAndBool 
+            //    = new PairOf<string, bool>();
+
+            MeteoStationDelegate m = new MeteoStationDelegate();
+
+            var d1 = new ForecastDisplay();
+            var d2 = new AverageConditionsDisplay();
+
+            m.AddDisplay(d1.Update);
+            m.AddDisplay(d2.Update);
+
+            m.Start();
+
+
+
+        }
+
+        static void GestisciConto(Conto target)
+        {
+            target.Deposita(100);
+
+            if(target.GetType()==typeof (ContoItaliano))
+            {
+                ContoItaliano x = (ContoItaliano)target;
+               
+            }
+
+            if(target.Saldo>50)
+            {
+                target.Ritira(2);
+            }
+        }
 
         static void Conditionals()
         {
@@ -168,17 +262,54 @@ namespace HelloDotNet
                 {
                     if (array[j] > array[j + 1])
                     {
-                        Swap(array, j, j + 1);
+                         Swap(array, j, j + 1);
+                        //SwapWrong( array[j],  array[j + 1]);
                     }
                 }
             }
         }
+
+
+        public static void BubbleSortComparable( IList <IComparable> myList)
+        {
+            for (int i = myList.Count - 1; i > 0; i--)
+            {
+                for (int j = 0; j < i; j++)
+                {
+                    //  if (myList[j] > myList[j + 1])
+                    int res = myList[j].CompareTo(myList[j + 1]);
+                    if(res > 0)
+                    {
+                        Swap(myList, j, j + 1);
+                        //SwapWrong( array[j],  array[j + 1]);
+                    }
+                }
+            }
+
+        }
+
+        //private static void SwapWrong( int x,  int j)
+        //{
+        //    //int x = valore del primo argomento
+        //    //int j = vaòlore del secondo argomento
+        //    int temp = x;
+        //    x = j;
+        //    j = temp;
+        //}
+
 
         private static void Swap(int[] array, int j, int v)
         {
             var temp = array[j];
             array[j] = array[v];
             array[v] = temp;
+        }
+
+        private static void Swap(IList<IComparable> a, int j, int v)
+        {
+            var temp = a[j];
+            a[j] = a[v];
+            a[v] = temp;
         }
 
         public static void SelectionSort(int[] array)
@@ -309,6 +440,27 @@ namespace HelloDotNet
                 }
                 Console.WriteLine(message);
             }
+        }
+
+        public static bool FindCoupleWithSum(int targetSum, int[] source)
+        {
+            int start = 0;
+            int end = source.Length - 1;
+            while (start < end)
+            {
+                var sum = source[start] + source[end];
+                if (sum == targetSum)
+                    return true;
+                else if(sum < targetSum)
+                {
+                    start++;
+                }
+                else
+                {
+                    end--;
+                }
+            }
+            return false;
         }
 
 
