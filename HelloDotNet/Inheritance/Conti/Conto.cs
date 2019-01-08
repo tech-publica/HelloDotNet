@@ -53,11 +53,21 @@ namespace it.Finsa.HelloDotNetCore.Inheritance.Conti
         //}
 
         public abstract void Deposita(decimal importo);
-      
+
 
         public void Ritira(decimal importo)
         {
-            saldo -= importo;
+            if (saldo >= importo)
+            {
+              saldo -= importo;
+            }
+            else
+            {
+                SaldoInsufficienteException se 
+                    = new SaldoInsufficienteException("ti piacerebbe..barbone", saldo, importo);
+                throw se;
+            }
+             
         }
 
         public void Bonifica (decimal importo, Conto destinatario)

@@ -6,4 +6,14 @@
     <RootNamespace>it.Finsa.HelloDotNetCore</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="data\studenti.csv" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="data\studenti.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>

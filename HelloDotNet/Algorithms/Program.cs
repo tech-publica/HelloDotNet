@@ -4,7 +4,8 @@ using it.Finsa.HelloDotNetCore.Inheritance;
 using it.Finsa.HelloDotNetCore.Inheritance.Conti;
 using System;
 using System.Collections.Generic;
-
+using it.Finsa.HelloDotNetCore.Closures;
+using System.IO;
 
 namespace it.Finsa.HelloDotNetCore.Algorithms
 {
@@ -21,7 +22,7 @@ namespace it.Finsa.HelloDotNetCore.Algorithms
             }
             set
             {
-                if(value == "Java")
+                if (value == "Java")
                 {
                     Console.WriteLine("Java e' proibito!!!");
                 }
@@ -60,9 +61,71 @@ namespace it.Finsa.HelloDotNetCore.Algorithms
         { }
 
 
+        static void Ouch()
+        {
+            Random r = new Random();
+
+            if ((r.Next() & 1) == 0)
+            {
+                Exception ex = new Exception("che sfiga");
+                throw ex;
+            }
+            Console.WriteLine("tutto ok");
+        }
+
 
         static void Main(string[] args)
         {
+
+            Conto c = null;// new ContoItaliano(23, "codice", DateTime.Now, DateTime.Today);
+
+
+
+            try
+            {
+                c.Ritira(3);
+                c.Ritira(21);
+                //
+               // Console.WriteLine("ciao");
+               
+            }
+            catch(SaldoInsufficienteException se)
+            {
+                Console.WriteLine(se.Message);
+                Console.WriteLine($"non puoi ritirare {se.Importo} se hai un saldo di {se.Saldo}");
+               // Console.WriteLine("ciao");
+            }
+            finally
+            {
+                Console.WriteLine("ciao");
+            }
+          
+
+
+            //
+            try
+            {
+                Ouch();
+                // blah
+                // blah
+            }
+            //catch (NullReferenceException ex) NOOOOOOOOOOO!!!!
+            //{
+            //    Console.WriteLine(ex.Message);
+            //}
+            catch (FileNotFoundException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            //
+            //Func<double, double> multBy5 =  ExampleOnClosure.MultiplyBy(5);
+            //double res = multBy5(10);
+            //Console.WriteLine(res);
             //var dict = new Dictionary<string, Studente>();
             //Studente st = new Studente();
             //Persona p = st;
@@ -76,15 +139,18 @@ namespace it.Finsa.HelloDotNetCore.Algorithms
             //PairOf<string, bool> pairOfStringAndBool 
             //    = new PairOf<string, bool>();
 
-            MeteoStationDelegate m = new MeteoStationDelegate();
+            //MeteoStationDelegate m = new MeteoStationDelegate();
 
-            var d1 = new ForecastDisplay();
-            var d2 = new AverageConditionsDisplay();
+            //var d1 = new ForecastDisplay();
+            //var d2 = new AverageConditionsDisplay();
 
-            m.AddDisplay(d1.Update);
-            m.AddDisplay(d2.Update);
+            ////m.AddDisplay(d1.Update);
+            //m.ConditionsChanged += d1.Update;
 
-            m.Start();
+            ////m.AddDisplay(d2.Update);
+            //m.ConditionsChanged += d2.Update;
+
+            //m.Start();
 
 
 
@@ -94,13 +160,13 @@ namespace it.Finsa.HelloDotNetCore.Algorithms
         {
             target.Deposita(100);
 
-            if(target.GetType()==typeof (ContoItaliano))
+            if (target.GetType() == typeof(ContoItaliano))
             {
                 ContoItaliano x = (ContoItaliano)target;
-               
+
             }
 
-            if(target.Saldo>50)
+            if (target.Saldo > 50)
             {
                 target.Ritira(2);
             }
@@ -262,7 +328,7 @@ namespace it.Finsa.HelloDotNetCore.Algorithms
                 {
                     if (array[j] > array[j + 1])
                     {
-                         Swap(array, j, j + 1);
+                        Swap(array, j, j + 1);
                         //SwapWrong( array[j],  array[j + 1]);
                     }
                 }
@@ -270,7 +336,7 @@ namespace it.Finsa.HelloDotNetCore.Algorithms
         }
 
 
-        public static void BubbleSortComparable( IList <IComparable> myList)
+        public static void BubbleSortComparable(IList<IComparable> myList)
         {
             for (int i = myList.Count - 1; i > 0; i--)
             {
@@ -278,7 +344,7 @@ namespace it.Finsa.HelloDotNetCore.Algorithms
                 {
                     //  if (myList[j] > myList[j + 1])
                     int res = myList[j].CompareTo(myList[j + 1]);
-                    if(res > 0)
+                    if (res > 0)
                     {
                         Swap(myList, j, j + 1);
                         //SwapWrong( array[j],  array[j + 1]);
@@ -423,7 +489,7 @@ namespace it.Finsa.HelloDotNetCore.Algorithms
         static void FizzBuzz()
         {
             string message;
-            for(int i=1;i<=100;i++)
+            for (int i = 1; i <= 100; i++)
             {
                 message = "";
                 if (i % 3 == 0)
@@ -434,7 +500,7 @@ namespace it.Finsa.HelloDotNetCore.Algorithms
                 {
                     message += "Buzz";
                 }
-                if(String.IsNullOrEmpty(message))
+                if (String.IsNullOrEmpty(message))
                 {
                     message = i.ToString();
                 }
@@ -451,7 +517,7 @@ namespace it.Finsa.HelloDotNetCore.Algorithms
                 var sum = source[start] + source[end];
                 if (sum == targetSum)
                     return true;
-                else if(sum < targetSum)
+                else if (sum < targetSum)
                 {
                     start++;
                 }

@@ -8,8 +8,8 @@ namespace it.Finsa.HelloDotNetCore.Inheritance.Conti
     {
         protected DateTime onomastico;
 
-        public ContoItaliano(decimal importo, string codice, DateTime apertura, DateTime onomastico)
-            : base(importo, codice, apertura)
+        public ContoItaliano(decimal saldo, string codice, DateTime apertura, DateTime onomastico)
+            : base(saldo, codice, apertura)
         {
             this.onomastico = onomastico;
         }

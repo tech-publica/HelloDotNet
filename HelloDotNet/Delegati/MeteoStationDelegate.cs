@@ -7,32 +7,26 @@ namespace it.Finsa.HelloDotNetCore.Delegati
 {
     public delegate void Update(double t, double p, double h);
 
+
+
     public class MeteoStationDelegate
     {
-        double temperature;
-        double pressure;
-        double humidity;
-        Random dice;
-        Update update;
+        private double temperature;
+        private double pressure;
+        private double humidity;
+        private Random dice;
+        public event Update ConditionsChanged;
 
-
+     
 
         public MeteoStationDelegate()
         {
  
             dice = new Random();
+            
 
         }
 
-        public void AddDisplay(Update newDisplay)
-        {
-            update += newDisplay;
-        }
-
-        public void RemoveDisplay(Update oldDisplay)
-        {
-            update -= oldDisplay;
-        }
 
         public void Start()
         {
@@ -43,11 +37,8 @@ namespace it.Finsa.HelloDotNetCore.Delegati
                 pressure = dice.NextDouble() * 50;
                 humidity = dice.NextDouble() * 50;
                 Console.WriteLine($"T: {temperature}, P: {pressure}, H: {humidity}");
-                if (update != null)
-                {
-                    update(temperature, pressure, humidity);
-                }
-                
+                ConditionsChanged?.Invoke(temperature, pressure, humidity);
+                //update(temperature, pressure, humidity);
             }
         }
     }
